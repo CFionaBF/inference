@@ -309,3 +309,9 @@ XINFERENCE_RATE_LIMIT_KEY_BAN_SECONDS = int(
 
 # Trusted proxy IPs — only honor X-Forwarded-For/X-Real-IP from these peers
 XINFERENCE_TRUSTED_PROXIES = os.environ.get("XINFERENCE_TRUSTED_PROXIES", "")
+
+# Whether model loaders may execute custom Python shipped inside a model repo
+# (HuggingFace `trust_remote_code`). Loading such code is arbitrary code
+# execution in the worker process, so it defaults to OFF and must be opted into
+# explicitly by the operator. Set XINFERENCE_TRUST_REMOTE_CODE=1 to enable.
+XINFERENCE_TRUST_REMOTE_CODE = os.environ.get("XINFERENCE_TRUST_REMOTE_CODE", "0") == "1"

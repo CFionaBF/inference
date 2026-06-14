@@ -120,7 +120,9 @@ class PytorchModel(LLM):
         pytorch_model_config.setdefault("gptq_groupsize", -1)
         pytorch_model_config.setdefault("gptq_act_order", False)
         pytorch_model_config.setdefault("device", "auto")
-        pytorch_model_config.setdefault("trust_remote_code", True)
+        from ....constants import XINFERENCE_TRUST_REMOTE_CODE
+
+        pytorch_model_config.setdefault("trust_remote_code", XINFERENCE_TRUST_REMOTE_CODE)
         pytorch_model_config.setdefault("max_num_seqs", 16)
         pytorch_model_config.setdefault("enable_tensorizer", False)
         pytorch_model_config.setdefault("reasoning_content", False)
@@ -186,6 +188,8 @@ class PytorchModel(LLM):
     def _get_components(self, **kwargs):
         from transformers import AutoTokenizer
 
+        from ....constants import XINFERENCE_TRUST_REMOTE_CODE
+
         return [
             (
                 "tokenizer",
@@ -193,7 +197,9 @@ class PytorchModel(LLM):
                 AutoTokenizer,
                 {
                     "use_fast": self._use_fast_tokenizer,
-                    "trust_remote_code": kwargs.get("trust_remote_code", True),
+                    "trust_remote_code": kwargs.get(
+                        "trust_remote_code", XINFERENCE_TRUST_REMOTE_CODE
+                    ),
                     "revision": kwargs.get("revision"),
                     "code_revision": kwargs.get("code_revision", None),
                 },

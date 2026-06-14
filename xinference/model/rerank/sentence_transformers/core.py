@@ -108,10 +108,12 @@ class SentenceTransformerRerankModel(RerankModel, BatchMixin):
                 ]
 
                 raise ImportError(f"{error_message}\n\n{''.join(installation_guide)}")
+            from ....constants import XINFERENCE_TRUST_REMOTE_CODE
+
             self._model = CrossEncoder(
                 self._model_path,
                 device=self._device,
-                trust_remote_code=True,
+                trust_remote_code=XINFERENCE_TRUST_REMOTE_CODE,
                 max_length=getattr(self.model_family, "max_tokens"),
                 **self._kwargs,
             )

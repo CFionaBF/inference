@@ -218,11 +218,13 @@ class SentenceTransformerEmbeddingModel(EmbeddingModel, BatchMixin):
             )
         else:
             model_kwargs = {"torch_dtype": torch_dtype} if torch_dtype else None
+            from ....constants import XINFERENCE_TRUST_REMOTE_CODE
+
             self._model = SentenceTransformer(
                 self._model_path,
                 device=self._device,
                 model_kwargs=model_kwargs,
-                trust_remote_code=True,
+                trust_remote_code=XINFERENCE_TRUST_REMOTE_CODE,
                 truncate_dim=dimensions,
             )
 

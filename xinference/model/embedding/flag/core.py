@@ -93,10 +93,12 @@ class FlagEmbeddingModel(EmbeddingModel, BatchMixin):
             model_kwargs = {"use_fp16": True}
         else:
             model_kwargs = {}
+        from ....constants import XINFERENCE_TRUST_REMOTE_CODE
+
         self._model = BGEM3FlagModel(
             self._model_path,
             device=self._device,
-            trust_remote_code=True,
+            trust_remote_code=XINFERENCE_TRUST_REMOTE_CODE,
             return_sparse=self._return_sparse,
             **model_kwargs,
         )

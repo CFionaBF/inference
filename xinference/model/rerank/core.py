@@ -176,7 +176,11 @@ class RerankModel:
     def _get_tokenizer(model_path):
         from transformers import AutoTokenizer
 
-        tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+        from ...constants import XINFERENCE_TRUST_REMOTE_CODE
+
+        tokenizer = AutoTokenizer.from_pretrained(
+            model_path, trust_remote_code=XINFERENCE_TRUST_REMOTE_CODE
+        )
         return tokenizer
 
     @staticmethod
